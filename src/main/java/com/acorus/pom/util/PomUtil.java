@@ -26,7 +26,7 @@ class cConfig{
 
 
     static final String username = "CheneAntray@163.com";
-    static final String password = "lovess241598637";
+    static final String password = "";
     static final String localDir = "D:\\workspace\\demo";
     static final String gitUrl  = "https://github.com/CheneAntray/demo.git";
     static final String pomPath = "D:\\workspace";
