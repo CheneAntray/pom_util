@@ -65,13 +65,6 @@ public class PomUtil {
         } catch (GitAPIException e) {
             throw new RuntimeException(e);
         }
-//        try {
-//            String test = GitUtils.createBranch(git, credential, "feature_20220621");
-//        } catch (GitAPIException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
         try {
             git.checkout().setName(cConfig.branch).call();
         } catch (GitAPIException e) {
