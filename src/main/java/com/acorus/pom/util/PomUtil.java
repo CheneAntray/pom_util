@@ -18,12 +18,21 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-//如何定义list   待分析（非重要）
-class getCollection{
 
-    public static List<String> pathList(){
+class cConfig{
+
+
+    static final String username = "CheneAntray@163.com";
+    static final String password = "lovess241598637";
+    static final String localDir = "D:\\workspace\\demo";
+    static final String gitUrl  = "https://github.com/CheneAntray/demo.git";
+    static final String pomPath = "D:\\workspace";
+    static final String branch = "feature_20220621";
+
+    public static Map<String,String> pathList(){
         return null;
     }
 
@@ -33,23 +42,48 @@ class getCollection{
 
 public class PomUtil {
 
-    private static final String username = "";
-    private static final String password = "";
-//    private static final String password = "";
-//    private static final String password = "";
+
 
 
 
     public static void main(String[] args) {
-        editVersion();
+        changeBranch();
+//        editVersion();
     }
-
-    private static final String pomPath = "D:\\workspace";
 
 
 
 
     //检测分支并切换
+    private static void changeBranch(){
+        CredentialsProvider credential = GitUtils.createCredentialsProvider(cConfig.username, cConfig.password);
+        Git git = null;
+        try {
+            git = GitUtils.getGit(cConfig.gitUrl, credential, cConfig.localDir);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (GitAPIException e) {
+            throw new RuntimeException(e);
+        }
+//        try {
+//            String test = GitUtils.createBranch(git, credential, "feature_20220621");
+//        } catch (GitAPIException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        try {
+            git.checkout().setName(cConfig.branch).call();
+        } catch (GitAPIException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            git.pull().call();
+        } catch (GitAPIException e) {
+            throw new RuntimeException(e);
+        }
+        GitUtils.closeGit(git);
+    }
 
     //拉去最新代码
 
@@ -60,7 +94,7 @@ public class PomUtil {
         MavenXpp3Reader xpp3Reader = new MavenXpp3Reader();
         MavenXpp3Writer xpp3Writer = new MavenXpp3Writer();
 
-        String pomUrl = pomPath+"\\pom.xml";
+        String pomUrl = cConfig.pomPath+"\\pom.xml";
         String versionRgex = "<version>(.*?)</version>";
 
         try {
