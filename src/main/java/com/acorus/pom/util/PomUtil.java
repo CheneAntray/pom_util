@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+//如何定义list   待分析（非重要）
 class getCollection{
 
     public static List<String> pathList(){
@@ -32,6 +32,14 @@ class getCollection{
 
 
 public class PomUtil {
+
+    private static final String username = "";
+    private static final String password = "";
+//    private static final String password = "";
+//    private static final String password = "";
+
+
+
     public static void main(String[] args) {
         editVersion();
     }
